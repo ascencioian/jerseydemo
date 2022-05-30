@@ -34,6 +34,17 @@ public class SneakerResources {
 		System.out.println(repo.getSneaker(sku));
 		return repo.getSneaker(sku);
 	}
+	//----------------post
+	@POST
+	@Path("sneaker")
+	public Sneaker createSneaker(Sneaker s1){
+		
+		repo.createSneaker(s1);
+		
+		return s1;
+	}
+	
+	
 	
 	//----------------delete
 	@DELETE
