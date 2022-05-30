@@ -21,7 +21,7 @@ public class SneakerResources {
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public List<Sneaker> getSneakers()
 	{
-		System.out.println("getSneakers called");
+		System.out.println("getSneakers called1");
 		
 		return repo.getSneakers();
 	}
@@ -46,16 +46,6 @@ public class SneakerResources {
 		
 	}
 	
-	//------------------post
-	@POST
-	@Path("sneaker")
-	public Sneaker createSneaker(Sneaker s1) {
-		System.out.println(s1);
-		
-		repo.create(s1);
-		
-		return s1;
-	}
 	
 	
 	
