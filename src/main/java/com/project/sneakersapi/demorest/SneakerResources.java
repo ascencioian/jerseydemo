@@ -6,6 +6,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.Produces;
 
@@ -16,7 +17,7 @@ public class SneakerResources {
 	
 	SneakerRepository repo = new SneakerRepository();
 	
-	//------------------get	
+	//------------------GET	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public List<Sneaker> getSneakers()
@@ -35,7 +36,7 @@ public class SneakerResources {
 		return repo.getSneaker(sku);
 	}
 	
-	//----------------delete
+	//----------------DELETE
 	@DELETE
 	@Path("/sneaker/{sku}")
 	public void deleteSneaker(@PathParam("sku") String sku) {
@@ -46,16 +47,19 @@ public class SneakerResources {
 		
 	}
 	
-	//------------------post
+	//------------------POST
 	@POST
 	@Path("sneaker")
+	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Sneaker createSneaker(Sneaker s1) {
 		System.out.println(s1);
 		
-		repo.create(s1);
+		repo.createSneaker(s1);
 		
 		return s1;
 	}
+	
+	//------------------PUT
 	
 	
 	
