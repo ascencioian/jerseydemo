@@ -39,9 +39,18 @@ public class SneakerResources {
 	//----------------DELETE
 	@DELETE
 	@Path("/sneaker/{sku}")
-	public void deleteSneaker(@PathParam("sku") String sku) {
+	public Sneaker deleteSneaker(@PathParam("sku") String sku) {
 		System.out.println("deleteSneaker called");
-		System.out.println(repo.getSneaker(sku));
+		System.out.println(sku);
+		Sneaker a = repo.getSneaker(sku);
+		System.out.println(a.getName() + " " + a.getColorway());
+		String skuToDelete = a.getSku();
+		System.out.println(skuToDelete);
+	if(a.getSku() != null) {
+		repo.deleteSneaker(skuToDelete);
+	}
+		
+		return a;
 		
 		
 		
@@ -61,7 +70,16 @@ public class SneakerResources {
 	
 	//------------------PUT
 	
-	
+	@PUT
+	@Path("sneaker")
+	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public Sneaker updateSneaker(Sneaker s1) {
+		System.out.println(s1);
+		
+		repo.updateSneaker(s1);
+		
+		return s1;
+	}
 	
 }
 

@@ -118,19 +118,20 @@ public class SneakerRepository {
 public void updateSneaker(Sneaker s1) {
 		
 
-		String sql = "insert into sneaker values (?,?,?,?,?,?,?,?,?)";
+		String sql = "update sneaker set name=?, brand=?, gender=?, colorway=?, release_date=?, retail_price=?, market_value=?, image=? where sku=?";
 		try {
 			PreparedStatement st = conn.prepareStatement(sql);
 
-			st.setString(1, s1.getSku());
-			st.setString(2, s1.getName());
-			st.setString(3, s1.getBrand());
-			st.setString(4, s1.getGender());
-			st.setString(5, s1.getColorway());
-			st.setString(6, s1.getReleasedate());
-			st.setInt(7, s1.getRetailprice());
-			st.setInt(8, s1.getMarketvalue());
-			st.setString(9, s1.getImage());
+			
+			st.setString(1, s1.getName());
+			st.setString(2, s1.getBrand());
+			st.setString(3, s1.getGender());
+			st.setString(4, s1.getColorway());
+			st.setString(5, s1.getReleasedate());
+			st.setInt(6, s1.getRetailprice());
+			st.setInt(7, s1.getMarketvalue());
+			st.setString(8, s1.getImage());
+			st.setString(9, s1.getSku());
 			st.executeUpdate();
 
 		}
@@ -139,5 +140,24 @@ public void updateSneaker(Sneaker s1) {
 		}
 		
 	}
+
+//-----------------------delete a sneaker
+public void deleteSneaker(String sku) {
+	
+
+	String sql = "delete from sneaker where sku=?";
+	try {
+		PreparedStatement st = conn.prepareStatement(sql);
+
+		st.setString(1, sku);
+		
+		st.executeUpdate();
+
+	}
+	catch(Exception e){
+		System.out.println(e);
+	}
+	
+}
 
 }
