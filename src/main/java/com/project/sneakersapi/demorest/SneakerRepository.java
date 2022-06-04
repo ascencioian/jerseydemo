@@ -4,6 +4,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import abstractdaoEx2.Database;
+import abstractdaoEx2.Employee;
+
 public class SneakerRepository {
 	
 	Connection conn = null;
@@ -62,21 +65,36 @@ public class SneakerRepository {
 	
 	//---------------------------return a single sneaker
 	public Sneaker getSneaker(String sku) {
-		Sneaker s = new Sneaker();
-		String sql = "select * from sneaker where sku=" + sku;
+		Sneaker s = null;
+		String sql = "SELECT sku, name, brand, gender, colorway, release_date, retail_price, market_value, image FROM sneaker WHERE sku = ?";
 		try {
-			Statement st = conn.createStatement();
-			ResultSet rs = st.executeQuery(sql);
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, sku);
+			
+			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
-				s.setSku(rs.getString(1));
-				s.setName(rs.getString(2));
-				s.setBrand(rs.getString(3));
-				s.setGender(rs.getString(4));
-				s.setColorway(rs.getString(5));
-				s.setReleasedate(rs.getString(6));
-				s.setRetailprice(rs.getInt(7));
-				s.setMarketvalue(rs.getInt(8));
-				s.setImage(rs.getString(9));
+//				s.setSku(rs.getString(1));
+//				s.setName(rs.getString(2));
+//				s.setBrand(rs.getString(3));
+//				s.setGender(rs.getString(4));
+//				s.setColorway(rs.getString(5));
+//				s.setReleasedate(rs.getString(6));
+//				s.setRetailprice(rs.getInt(7));
+//				s.setMarketvalue(rs.getInt(8));
+//				s.setImage(rs.getString(9));
+				
+				String rs_sku = rs.getString("sku");
+				String name = rs.getString("name");
+				String brand = rs.getString("brand");
+				String gender = rs.getString("gender");
+				String colorway = rs.getString("colorway");
+				String release_date = rs.getString("release_date");
+				int retail_price = rs.getInt("retail_price");
+				int market_value = rs.getInt("market_value");
+				String image = rs.getString("image");
+
+				//data transfer object created 
+				s = new Sneaker(rs_sku, name, brand, gender, colorway, release_date, retail_price, market_value, image);
 			}
 
 		}
@@ -88,6 +106,7 @@ public class SneakerRepository {
 		
 	}
 	
+
 	//-------------------create a sneaker 
 	public void createSneaker(Sneaker s1) {
 		
